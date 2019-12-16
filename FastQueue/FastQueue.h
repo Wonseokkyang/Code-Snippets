@@ -25,11 +25,12 @@ shrink_to_fit()  //shrinks container exactly to fit it's size
 #include <stdexcept>
 #include <exception>
 
+// using namespace std;
 
 template<typename T> 
 class FastQueue {
   private:
-    vector<T> vq;
+    std::vector<T> vq;
     int vq_head; //index of the head of the queue
     int vq_size;
   public:

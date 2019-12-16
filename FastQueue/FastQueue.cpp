@@ -4,6 +4,10 @@
 */
 
 /* Professor suggested starting capacity to be 8 */
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+#include <exception>
 
 template <typename T> 
 FastQueue<T>::FastQueue(){
@@ -16,13 +20,13 @@ FastQueue<T>::FastQueue(){
 template <typename T> 
 void FastQueue<T>::enqueue(T new_element){	
 	if (vq.capacity()==vq_size) { 	//vector is at full capacity
-		vector<T> temp_v;
+		std::vector<T> temp_v;
 		temp_v.resize(vq.capacity()*2);
 
 		for (int i{0}; i<vq_size; ++i){
-			swap(temp_v[i], vq[(vq_head+i)%vq.capacity()]);
+			std::swap(temp_v[i], vq[(vq_head+i)%vq.capacity()]);
 		}
-		swap(vq, temp_v);
+		std::swap(vq, temp_v);
 		vq_head = 0;	//head is at the beginning again
 	}
     vq[(vq_head+vq_size) % vq.capacity()] = new_element;
@@ -47,7 +51,7 @@ void FastQueue<T>::dequeue(){
 template <typename T> 
 T& FastQueue<T>::head(){
 	if (vq_size==0){
-		throw out_of_range("FastQueue<T>::head() : container is empty");
+		throw std::out_of_range("FastQueue<T>::head() : container is empty");
 	}
 	else{
 		return vq[vq_head];
@@ -60,7 +64,7 @@ T& FastQueue<T>::head(){
 template <typename T> 
 T& FastQueue<T>::tail(){
 	if (vq_size==0){
-		throw out_of_range("FastQueue<T>::tail() : container is empty");
+		throw std::out_of_range("FastQueue<T>::tail() : container is empty");
 	}
 	else{
 		return vq[((vq_head+vq_size)%vq.capacity())-1];
@@ -73,7 +77,7 @@ T& FastQueue<T>::tail(){
 template <typename T> 
 T& FastQueue<T>::at(int index){
 	if (index>vq_size){
-		throw out_of_range("FastQueue<T>::at() : index is out of range");
+		throw std::out_of_range("FastQueue<T>::at() : index is out of range");
 	}
 	else{
 		return vq[(index+vq_head)%vq.capacity()];
@@ -98,12 +102,12 @@ int FastQueue<T>::capacity(){
 /* Resizes the container to the number of elements in the container */
 template <typename T> 
 void FastQueue<T>::shrink_to_fit(){
-	vector<T> temp_v;
+	std::vector<T> temp_v;
 	temp_v.resize(vq_size);
 	for (int i{0}; i<vq_size; ++i){
-		swap(temp_v[i], vq[(vq_head+i)%vq.capacity()]);
+		std::swap(temp_v[i], vq[(vq_head+i)%vq.capacity()]);
 	}
-	swap(vq, temp_v);
+	std::swap(vq, temp_v);
 	vq_head = 0;	//head is at the beginning of the resized vector
 };	//end shrink_to_fit()
 
@@ -130,11 +134,11 @@ void FastQueue<T>::print_all(){
 	for (int i{0}; i<vq_size; ++i){
 		std::cout<<vq[(i+vq_head)%vq.capacity()]<<" | ";
 	}
-	std::cout<<endl;
+	std::cout<<"\n";
 };
 
 template <typename T> 
 void FastQueue<T>::print_props(){
-	std::cout<<"Head index: "<<vq_head<<endl;
-	std::cout<<"Size: "<<vq_size<<endl;
+	std::cout<<"Head index: "<<vq_head<<"\n";
+	std::cout<<"Size: "<<vq_size<<"\n";
 };
