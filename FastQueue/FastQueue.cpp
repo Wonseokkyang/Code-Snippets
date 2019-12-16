@@ -4,6 +4,7 @@
 */
 
 /* Professor suggested starting capacity to be 8 */
+
 template <typename T> 
 FastQueue<T>::FastQueue(){
 	vq_head = 0;
@@ -13,15 +14,8 @@ FastQueue<T>::FastQueue(){
 
 /* Adds an element to the tail of queue. If the queue is full, double the capacity. */
 template <typename T> 
-void FastQueue<T>::enqueue(T new_element){
-    //before adding an element to queue, 
-    // check to see if queue is full
-    //   if queue is full,
-    //     make a new vector that's double the size of the old vector
-	//     swap in elements into new array,
-	
+void FastQueue<T>::enqueue(T new_element){	
 	if (vq.capacity()==vq_size) { 	//vector is at full capacity
-		cout<<"vq cap is the same as size..\n";
 		vector<T> temp_v;
 		temp_v.resize(vq.capacity()*2);
 
@@ -41,7 +35,8 @@ void FastQueue<T>::enqueue(T new_element){
 template <typename T> 
 void FastQueue<T>::dequeue(){
 	if(vq_size>0){	//
-		++vq_head;	//dont actually need to erase because the previous head will be overwritten
+		//dont actually need to erase because the previous head will be overwritten
+		vq_head = (vq_head+1) % (vq.capacity()-1);
 		--vq_size;
 	}
 };	//end dequeue()
@@ -119,27 +114,27 @@ void FastQueue<T>::shrink_to_fit(){
 
 template <typename T> 
 void FastQueue<T>::print_all(){
-	cout<<"Index: \t\t|";
+	std::cout<<"Index: \t\t|";
 	for (int i{0}; i<vq.capacity(); ++i){
-		cout<<i<<" | ";
+		std::cout<<i<<" | ";
 	}
 
-	cout<<"\n------------------------------------------------";
+	std::cout<<"\n------------------------------------------------";
 	
-	cout<<"\nVector as is: \t|";
+	std::cout<<"\nVector as is: \t|";
 	for (int i{0}; i<vq.capacity(); ++i){
-		cout<<vq[i]<<" | ";
+		std::cout<<vq[i]<<" | ";
 	}
 
-	cout<<"\nPOV from queue: |";
+	std::cout<<"\nPOV from queue: |";
 	for (int i{0}; i<vq_size; ++i){
-		cout<<vq[(i+vq_head)%vq.capacity()]<<" | ";
+		std::cout<<vq[(i+vq_head)%vq.capacity()]<<" | ";
 	}
-	cout<<endl;
+	std::cout<<endl;
 };
 
 template <typename T> 
 void FastQueue<T>::print_props(){
-	cout<<"Head index: "<<vq_head<<endl;
-	cout<<"Size: "<<vq_size<<endl;
+	std::cout<<"Head index: "<<vq_head<<endl;
+	std::cout<<"Size: "<<vq_size<<endl;
 };

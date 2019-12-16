@@ -25,7 +25,6 @@ shrink_to_fit()  //shrinks container exactly to fit it's size
 #include <stdexcept>
 #include <exception>
 
-using namespace std;
 
 template<typename T> 
 class FastQueue {
